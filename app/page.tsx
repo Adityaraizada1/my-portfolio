@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FloatingNav } from "../components/ui/resizable-navbar";
-import { Home, Info, Mail } from "lucide-react";
+import { Home, Info, PenLine } from "lucide-react";
 import { LoaderFive } from "@/components/ui/loader";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
@@ -47,7 +47,7 @@ export default function Page() {
   const navItems = [
     { name: "Home", link: "/", icon: <Home size={18} /> },
     { name: "Project", link: "/projects", icon: <Info size={18} /> },
-    { name: "Blog", link: "/contact", icon: <Mail size={18} /> },
+    { name: "Blog", link: "/blog", icon: <PenLine size={18} /> },
   ];
 
   const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "Hallo", "नमस्ते", "こんにちは", "привет", "안녕하세요"];
