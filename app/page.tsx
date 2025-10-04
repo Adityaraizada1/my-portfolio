@@ -68,9 +68,8 @@ export default function Page() {
       {/* Loader */}
       {loading && (
         <div
-          className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 text-white transition-all duration-500 ${
-            hideLoader ? "translate-x-full opacity-0 scale-110" : "translate-x-0 opacity-100 scale-100"
-          }`}
+          className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 text-white transition-all duration-500 ${hideLoader ? "translate-x-full opacity-0 scale-110" : "translate-x-0 opacity-100 scale-100"
+            }`}
         >
           <LoaderFive text="Generating chat..." />
         </div>
@@ -125,8 +124,11 @@ export default function Page() {
             <Image
               src="/profile.jpeg"
               alt="Aditya Raizada"
+              width={256}   // match w-64 (16rem)
+              height={256}  // match h-64
               className="w-64 h-64 object-cover rounded-2xl border-2 border-purple-500 shadow-lg shadow-purple-800/40 hover:scale-105 transition-transform duration-300"
             />
+
           </div>
         </div>
       </main>
