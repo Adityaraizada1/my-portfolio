@@ -25,7 +25,7 @@ export default function AboutPage() {
     {
       title: "The Guardians",
       description:
-        "A website developed for AI security for women safety using computer vision and deep learning.",
+        "A software developed for AI security for women safety using computer vision and deep learning.",
       link: null, // no repo available
     },
   ];
