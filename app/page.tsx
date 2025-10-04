@@ -1,103 +1,134 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import React, { useState, useEffect } from "react";
+import { FloatingNav } from "../components/ui/resizable-navbar";
+import { Home, Info, Mail } from "lucide-react";
+import { LoaderFive } from "@/components/ui/loader";
+import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+
+// Typing effect hook
+const useTypingEffect = (words: string[], speed = 150, pause = 1000) => {
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex % words.length];
+    let timeout: NodeJS.Timeout;
+
+    if (!deleting) {
+      if (charIndex < currentWord.length) {
+        timeout = setTimeout(() => setCharIndex(charIndex + 1), speed);
+      } else {
+        timeout = setTimeout(() => setDeleting(true), pause);
+      }
+    } else {
+      if (charIndex > 0) {
+        timeout = setTimeout(() => setCharIndex(charIndex - 1), speed / 2);
+      } else {
+        setDeleting(false);
+        setWordIndex(wordIndex + 1);
+      }
+    }
+
+    setText(currentWord.substring(0, charIndex));
+    return () => clearTimeout(timeout);
+  }, [charIndex, deleting, wordIndex, words, speed, pause]);
+
+  return text;
+};
+
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+  const [hideLoader, setHideLoader] = useState(false);
+
+  const navItems = [
+    { name: "Home", link: "/", icon: <Home size={18} /> },
+    { name: "Project", link: "/projects", icon: <Info size={18} /> },
+    { name: "Blog", link: "/contact", icon: <Mail size={18} /> },
+  ];
+
+  const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "Hallo", "नमस्ते", "こんにちは", "привет", "안녕하세요"];
+  const typedText = useTypingEffect(greetings, 150, 1000);
+
+  useEffect(() => {
+    document.body.style.overflow = "auto"; // scrolling enabled
+    const timer = setTimeout(() => {
+      setHideLoader(true);
+      setTimeout(() => setLoading(false), 500);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* Loader */}
+      {loading && (
+        <div
+          className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 text-white transition-all duration-500 ${
+            hideLoader ? "translate-x-full opacity-0 scale-110" : "translate-x-0 opacity-100 scale-100"
+          }`}
+        >
+          <LoaderFive text="Generating chat..." />
+        </div>
+      )}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* Floating Nav */}
+      <FloatingNav navItems={navItems} />
+
+      {/* Top Hello Section */}
+      <section className="w-full flex items-center justify-center mt-24 lg:mt-32 mb-16">
+        <h1 className="text-6xl sm:text-8xl lg:text-9xl font-extrabold text-yellow-400 font-mono text-center">
+          {typedText} 👋
+        </h1>
+      </section>
+
+      {/* Main content */}
+      <main className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-center p-6 gap-16 lg:gap-24">
+        {/* Left Content */}
+        <div className="max-w-2xl text-center lg:text-left flex-shrink-0 space-y-8">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-purple-500">
+            Aditya Raizada
+          </h1>
+
+          <p className="text-base sm:text-lg text-gray-200 leading-relaxed">
+            I’m <span className="text-purple-400 font-semibold">Aditya Raizada</span>, a teen diving headfirst into the world of{" "}
+            <span className="text-yellow-400 font-semibold">machine learning</span> while building a startup focused on{" "}
+            <span className="text-yellow-400 font-semibold">women’s safety</span>.
+            <br />
+            I spend my days teaching machines to do my bidding, fueled by caffeine, and buzzing with ideas that might make the world a little safer and a lot more interesting.
+            <br />
+            Inspired by <span className="text-purple-400 font-semibold">Elon Musk</span>, I’m on a mission to create things that matter—sometimes serious, sometimes silly, but always <span className="text-yellow-400 font-semibold">learning and building</span>.
+          </p>
+
+          {/* Social Icons */}
+          <div className="flex justify-center lg:justify-start gap-6 mt-4 text-2xl">
+            <a href="https://linkedin.com/in/" target="_blank" rel="noreferrer" className="text-blue-600 hover:opacity-80 transition">
+              <FaLinkedin />
+            </a>
+            <a href="https://github.com/Adityaraizada1" target="_blank" rel="noreferrer" className="text-gray-300 hover:opacity-80 transition">
+              <FaGithub />
+            </a>
+            <a href="https://instagram.com/adityaraizada_" target="_blank" rel="noreferrer" className="text-pink-500 hover:opacity-80 transition">
+              <FaInstagram />
+            </a>
+          </div>
+        </div>
+
+        {/* Right Avatar */}
+        <div className="flex justify-center lg:justify-end flex-shrink-0 mt-12 lg:mt-0">
+          <div className="relative">
+            <div className="absolute -inset-2 rounded-2xl border-2 border-dashed border-gray-700/30 pointer-events-none"></div>
+            <img
+              src="/profile.jpeg"
+              alt="Aditya Raizada"
+              className="w-64 h-64 object-cover rounded-2xl border-2 border-purple-500 shadow-lg shadow-purple-800/40 hover:scale-105 transition-transform duration-300"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
