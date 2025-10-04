@@ -5,21 +5,28 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
-export default function AboutPage() {
-  const [selectedCard, setSelectedCard] = useState<any>(null);
+// Define TypeScript type for Card
+type Card = {
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+  gallery?: string[];
+};
 
-  const cards = [
+export default function BlogPage() {
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
+
+  const cards: Card[] = [
     {
       title: "AI Hospital Management System",
       date: "Updated on: September 10, 2025",
       description: `
-The AI Hospital Management System is an advanced software platform designed to transform how hospitals operate. In traditional hospitals, patient management, doctor coordination, and administrative processes are handled manually, which often leads to delays and inefficiencies. This system aims to change that through data-driven automation and artificial intelligence.
+The AI Hospital Management System is a comprehensive platform designed to transform hospital operations. It uses artificial intelligence to optimize patient scheduling, manage records, predict patient inflow, and streamline administrative tasks. 
 
-It uses predictive models to analyze patient inflow, manage appointments dynamically, and even suggest optimized treatment schedules based on available resources. Doctors and nurses receive real-time updates, while administrators gain insights into hospital performance through detailed dashboards. 
+With predictive analytics, the system forecasts bed availability and medicine inventory, reducing shortages and delays. Doctors and nurses get real-time insights, while administrators monitor performance via dashboards. 
 
-The system integrates patient electronic records, lab reports, and pharmacy data into a unified, secure database. Using AI, it can predict medicine shortages before they happen and flag unusual patient patterns for early disease detection.
-
-This project represents the future of healthcare — where decision-making is not reactive but proactive, driven by intelligent systems that understand patterns and needs before humans do.
+By integrating patient records, lab results, and pharmacy data, it enables proactive decision-making, enhancing efficiency and patient care.
       `,
       image:
         "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=1600",
@@ -28,13 +35,9 @@ This project represents the future of healthcare — where decision-making is no
       title: "Machine Learning Website",
       date: "Updated on: August 28, 2025",
       description: `
-This project is a full-fledged educational website dedicated to simplifying the learning of Machine Learning. The primary motivation behind its creation was the overwhelming complexity beginners face when they first encounter algorithms and mathematical concepts in ML.
+This project is an interactive educational platform designed to simplify machine learning concepts. Users can visualize algorithms such as Linear Regression, Decision Trees, Neural Networks, and more. 
 
-The site offers step-by-step visualizations of algorithms like Linear Regression, Decision Trees, Support Vector Machines, and Neural Networks. Users can interactively modify parameters and instantly see how those changes affect outcomes. The interface promotes experimentation, curiosity, and intuitive understanding rather than memorization.
-
-Every page is crafted to explain both the theory and the practical application side-by-side. In addition to interactive visuals, the site contains real-world case studies, project-based exercises, and an integrated notebook where users can write and test their code in real time.
-
-It’s a platform built to make learning Machine Learning not only accessible but enjoyable — designed for students, professionals, and educators alike.
+The site includes live coding exercises, parameter tuning, and real-time output visualization. Its goal is to make learning ML intuitive and hands-on for students, professionals, and educators.
       `,
       image:
         "https://images.unsplash.com/photo-1505685296765-3a2736de412f?q=80&w=1600",
@@ -43,15 +46,9 @@ It’s a platform built to make learning Machine Learning not only accessible bu
       title: "Model for Cars Dataset",
       date: "Updated on: October 2, 2025",
       description: `
-The Cars Dataset project focuses on predicting vehicle prices using data science and machine learning. It was created to analyze how features such as engine size, horsepower, fuel type, body style, and brand influence market value.
+This project trains machine learning models to predict car prices based on a dataset including features like engine size, horsepower, fuel type, and body style. Multiple models were tested, including Linear Regression, Random Forest, and XGBoost. 
 
-The dataset underwent an extensive preprocessing phase — removing inconsistencies, handling missing values, and encoding categorical variables. Visualizations were performed to uncover relationships between performance metrics and pricing trends.
-
-Multiple models were trained and compared, including Linear Regression, Random Forest, Gradient Boosting, and XGBoost. Random Forest provided the most balanced accuracy and interpretability, achieving an impressive 92% R² score on test data.
-
-Beyond the technical side, the project emphasizes explainability. SHAP (SHapley Additive exPlanations) values were used to interpret how each feature impacts the final prediction, turning the model into a transparent tool rather than a black box. The end result is a robust, explainable system that can accurately estimate car prices based on data patterns.
-
-The deployment of this model through a Flask API demonstrates how a research concept can become a production-level predictive service accessible to everyone.
+Feature engineering, data visualization, and model evaluation were performed. Random Forest achieved the best performance with 92% R². SHAP values were used for explainability, highlighting the impact of each feature.
       `,
       image:
         "https://images.unsplash.com/photo-1493238792000-8113da705763?q=80&w=1600",
@@ -65,13 +62,9 @@ The deployment of this model through a Flask API demonstrates how a research con
       title: "The Guardians",
       date: "Updated on: September 18, 2025",
       description: `
-The Guardians is an AI-powered surveillance and security solution built to protect public safety with a focus on women’s security. It combines deep learning and computer vision to detect violence, harassment, and abnormal human behavior in real time.
+The Guardians is an AI-based public safety system designed for real-time threat detection and women's safety. It uses computer vision to detect violence or harassment. 
 
-When the system identifies potential threats, it triggers an automated workflow that alerts nearby authorities and sends video snapshots with geolocation data. This rapid-response mechanism ensures incidents are addressed within seconds rather than minutes. 
-
-The software was designed with consultation from local administration officials in Himachal Pradesh to align with real-world challenges faced by security departments. It can be integrated into existing CCTV infrastructure, making it scalable for urban environments.
-
-The ultimate goal of The Guardians is not just to detect violence but to prevent it. By enabling authorities to act faster and more intelligently, this system represents a leap toward safer communities powered by ethical AI.
+When an incident is detected, authorities receive instant alerts with live video and location. The system is scalable and can integrate with existing CCTV infrastructure to enhance public safety.
       `,
       image:
         "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1600",
@@ -94,8 +87,8 @@ The ultimate goal of The Guardians is not just to detect violence but to prevent
               blog.
             </h1>
             <p className="text-lg text-gray-400 mb-12 text-center">
-              Sharing insights, stories, and updates on my projects and
-              experiences.
+              A collection of my projects and writings on AI, machine learning,
+              and data science.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-5xl">
