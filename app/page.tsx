@@ -5,6 +5,7 @@ import { FloatingNav } from "../components/ui/resizable-navbar";
 import { Home, Info, Mail } from "lucide-react";
 import { LoaderFive } from "@/components/ui/loader";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import Image from "next/image";
 
 // Typing effect hook
 const useTypingEffect = (words: string[], speed = 150, pause = 1000) => {
@@ -121,7 +122,7 @@ export default function Page() {
         <div className="flex justify-center lg:justify-end flex-shrink-0 mt-12 lg:mt-0">
           <div className="relative">
             <div className="absolute -inset-2 rounded-2xl border-2 border-dashed border-gray-700/30 pointer-events-none"></div>
-            <img
+            <Image
               src="/profile.jpeg"
               alt="Aditya Raizada"
               className="w-64 h-64 object-cover rounded-2xl border-2 border-purple-500 shadow-lg shadow-purple-800/40 hover:scale-105 transition-transform duration-300"
