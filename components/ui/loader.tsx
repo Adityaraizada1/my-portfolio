@@ -88,7 +88,7 @@ export const LoaderThree = () => (
 );
 
 export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => (
-  <div className="relative font-bold text-black [perspective:1000px] dark:text-white">
+  <div className="relative font-bold text-white [perspective:1000px] dark:text-black">
     <motion.span
       animate={{ skewX: [0, -40, 0], scaleX: [1, 2, 1] }}
       transition={{

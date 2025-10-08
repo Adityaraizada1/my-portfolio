@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { FloatingNav } from "../components/ui/resizable-navbar";
 import { Home, Info, PenLine } from "lucide-react";
-import { LoaderFive } from "@/components/ui/loader";
+import { LoaderFour } from "@/components/ui/loader";
 import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
 
@@ -71,7 +71,7 @@ export default function Page() {
           className={`fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 text-white transition-all duration-500 ${hideLoader ? "translate-x-full opacity-0 scale-110" : "translate-x-0 opacity-100 scale-100"
             }`}
         >
-          <LoaderFive text="Generating chat..." />
+          <LoaderFour/>
         </div>
       )}
 
@@ -105,7 +105,7 @@ export default function Page() {
 
           {/* Social Icons */}
           <div className="flex justify-center lg:justify-start gap-6 mt-4 text-2xl">
-            <a href="https://linkedin.com/in/" target="_blank" rel="noreferrer" className="text-blue-600 hover:opacity-80 transition">
+            <a href="www.linkedin.com/in/raizadaaditya" target="_blank" rel="noreferrer" className="text-blue-600 hover:opacity-80 transition">
               <FaLinkedin />
             </a>
             <a href="https://github.com/Adityaraizada1" target="_blank" rel="noreferrer" className="text-gray-300 hover:opacity-80 transition">
