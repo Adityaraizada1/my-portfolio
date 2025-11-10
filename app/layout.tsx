@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { FloatingNav } from "@/components/ui/resizable-navbar";
-import { Home, Info, PenLine } from "lucide-react";
+import { Home, Info, PenLine, Award } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
@@ -30,6 +30,7 @@ export default function RootLayout({
     { name: "Home", link: "/", icon: <Home size={18} /> },
     { name: "Project", link: "/projects", icon: <Info size={18} /> },
     { name: "Blog", link: "/blog", icon: <PenLine size={18} /> },
+    { name: "Highlights", link: "/highlights", icon: <Award size={18} /> },
   ];
 
   return (
